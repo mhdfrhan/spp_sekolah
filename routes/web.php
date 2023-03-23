@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
 	Route::put('admin/data/profile', 'AdminsController@changeProfile')->name('change.profile');
 	Route::get('admin/data/profile/image', 'AdminsController@deleteImage')->name('delete.image');
 	Route::put('/admin/data/change-password', 'AdminsController@postChangePassword')->name('change.password');
+	Route::get('admin/payment/reports', 'ReportsController@indexReports')->name('payment.reports');
+	Route::get('admin/payment/arrears', 'ReportsController@indexArrears')->name('payment.arrears');
 });
 
 Route::get('user/change-password', 'UsersController@getChangePassword');

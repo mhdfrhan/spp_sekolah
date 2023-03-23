@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
 @endpush
+
 @section('header')
 <div class="header bg-primary pb-6">
   <div class="container-fluid">
@@ -17,50 +18,26 @@
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
               <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
               <li class="breadcrumb-item"><a href="javascript:void(0)">Data Siswa</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Master</li>
+              <li class="breadcrumb-item active" aria-current="page">{{ $page_title }}</li>
             </ol>
           </nav>
         </div>
-        <div class="col-lg-6 col-5 text-right">
-          <a href="{{ url('admin/students/add') }}" class="btn btn-sm btn-neutral">Add</a>
-          <a href="{{ route('export.student') }}" class="btn btn-sm btn-neutral">Export</a>
-          <button  data-toggle="modal" data-target="#importModal" class="btn btn-sm btn-neutral">Import</button>
-					<!-- Modal -->
-					<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="{{ route('import.student') }}" method="POST" enctype="multipart/form-data">
-									@csrf
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="importModalLabel">Import Data Siswa</h1>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<input type="file" name="file" class="form-control">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Import</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-        </div>
+        {{-- <div class="col-lg-6 col-5 text-right">
+          <a href="{{ url('admin/rombels/add') }}" class="btn btn-sm btn-neutral">Add</a>
+        </div> --}}
       </div>
     </div>
   </div>
 </div>
 @endsection
+
 @section('content')
 <div class="row">
   <div class="col">
     <div class="card">
       <!-- Card header -->
       <div class="card-header">
-        <h3 class="mb-0">Master Data Siswa</h3>
+        <h3 class="mb-0">{{ $page_title }} Bulan {{ spp_month(date('n')) . date(' Y') }}</h3>
         @if(Session::has('message'))
         <div class="alert alert-{{ Session::get('message_type') }} alert-dismissible fade show mt-3" role="alert">
           <span class="alert-icon"><i class="ni ni-like-2"></i></span>
@@ -75,37 +52,33 @@
         <table class="table table-flush" id="datatable-basic">
           <thead class="thead-light">
             <tr>
-              <th>NIS</th>
+              <th>No</th>
               <th>Nama</th>
+              <th>nis</th>
+              <th>Kelas</th>
               <th>Rombel</th>
-              <th>Kelamin</th>
-              <th>Jenis SPP</th>
-              <th>Action</th>
+              <th>Jumlah</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <th>NIS</th>
+              <th>No</th>
               <th>Nama</th>
+              <th>nis</th>
+              <th>Kelas</th>
               <th>Rombel</th>
-              <th>Jenis Kelamin</th>
-              <th>Jenis SPP</th>
-              <th>Action</th>
+              <th>Jumlah</th>
             </tr>
           </tfoot>
           <tbody>
-            @foreach($data as $d)
+            @foreach($overdueStudents as $i => $student)
             <tr>
-              <td>{{ $d->username }}</td>
-              <td>{{ $d->name }}</td>
-              <td>{{ $d->rombel->name }}</td>
-              <td>{{ $d->gender }}</td>
-              <td>{{ $d->spp->info }} ~ Rp{{ number_format($d->spp->amount, 2) }}</td>
-              <td>
-                <a href="{{ url('admin/students/edit',$d->id) }}" class="btn btn-sm btn-warning text-white" title="Edit Data"><i class="ni ni-ruler-pencil"></i></a>
-                <a href="javascript:void(0)" onclick="destroy({{ $d->id }})" class="btn btn-sm btn-danger text-white"><i class="ni ni-box-2" title="Hapus Data"></i></a>
-                <a href="{{ url('admin/students/detail', $d->id) }}" class="btn btn-sm btn-info text-white" title="Detail Data"><i class="ni ni-zoom-split-in"></i></a>
-              </td>
+              <td>{{ $i + 1 }}</td>
+              <td>{{ $student->name }}</td>
+              <td>{{ $student->username }}</td>
+              <td>{{ $student->rombel->name }}</td>
+              <td>{{ $student->rombel->major_competency }}</td>
+							<td>Rp. {{ number_format($student->spp->amount) }}</td>
             </tr>
             @endforeach
           </tbody>
