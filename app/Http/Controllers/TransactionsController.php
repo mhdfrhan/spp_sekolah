@@ -64,11 +64,11 @@ class TransactionsController extends Controller
 
 	public function print($id)
 	{
-		$transaksi = DB::table('transactions')->select('transactions.*', 'transactions.id as id_transaksi', 'users.*', 'users.id as id_user', 'spp.*', 'spp.id as id_spp')
-			->join('users', 'users.id', '=', 'transactions.users_id')
-			->join('spp', 'spp.id', '=', 'transactions.spp_id')
-			->where('transactions.id', $id)
+		$transaksi = DB::table('transactions')
+			->where('id', $id)
 			->first();
+
+		$user = User::where('id', $transaksi->users_id)->first();
 
 		$implode = explode(',', $transaksi->for_month);
 
@@ -83,11 +83,11 @@ class TransactionsController extends Controller
 			return redirect()->back();
 		}
 
-		// dd($transaksi);
 
 		return view('invoice.print', [
 			't' => $transaksi,
-			'page_title' => "Print Invoice"
+			'page_title' => "Print Invoice",
+			'user' => $user
 		]);
 	}
 

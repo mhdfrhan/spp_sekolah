@@ -27267,3 +27267,8 @@ label[for="image"].form-control-label:hover {
 	text-decoration: underline;
 	
 }
+
+th {
+	text-transform: uppercase;
+	font-size: 16px;
+}

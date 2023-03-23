@@ -17,7 +17,7 @@
 
     <div class="container py-5">
         <div class="mb-4 d-flex justify-content-center align-items-center">
-            <img src="{{ asset('assets/img/brand/logo.png') }}" height="80px" alt="{{ setting('title') }}">
+            <img src="{{ asset('assets/img/brand/logo.png') }}" height="100px" alt="{{ setting('title') }}">
         </div>
         <div class="text-right mb-4">
             <button onclick="window.print()" class="btn btn-warning" id="printBtn">

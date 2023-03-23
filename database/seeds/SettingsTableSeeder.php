@@ -23,5 +23,17 @@ class SettingsTableSeeder extends Seeder
         $data->title = "Bulan Dimulai -> 1/7";
         $data->content = "1";
         $data->save();
+
+				$data = New Setting;
+				$data->slug = "alamat";
+				$data->title = "Alamat Sekolah";
+				$data->content = "Jl. Letjen Soeprapto, RT.02/RW.11, Kibing, Kec. Batu Aji, Kota Batam, Kepulauan Riau 29424";
+				$data->save();
+
+				$data = New Setting;
+				$data->slug = "telepon";
+				$data->title = "Nomor Telepon";
+				$data->content = "(0778) 364815";
+				$data->save();
     }
 }

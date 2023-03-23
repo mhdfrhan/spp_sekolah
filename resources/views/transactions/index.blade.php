@@ -92,7 +92,7 @@
                     <option selected disabled>== PILIH ==</option>
                   </select>
                   <div class="invalid-feedback">
-                    Pilih Jenis Kelamin Terlebih Dahulu.
+                    Pilih Bayar Sampai Bulan Dahulu.
                   </div>
                 </div>
               </div>
